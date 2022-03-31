@@ -1,15 +1,21 @@
 import java.util.ArrayList;
 
 public class StudentEnrolmentSystem implements StudentEnrolmentManager {
+    private static StudentEnrolmentSystem instance = new StudentEnrolmentSystem();
+
     private ArrayList<Student> studentList;
     private ArrayList<Course> courseList;
     private ArrayList<StudentEnrolment> enrolmentList;
     static private int enrolmentCounter = 0;
 
-    public StudentEnrolmentSystem() {
+    private StudentEnrolmentSystem() {
         studentList = new ArrayList<Student>();
         courseList = new ArrayList<Course>();
         enrolmentList = new ArrayList<StudentEnrolment>();
+    }
+
+    public static StudentEnrolmentSystem getInstance() {
+        return instance;
     }
 
     public Student getStudent(String studentId) {
@@ -44,19 +50,7 @@ public class StudentEnrolmentSystem implements StudentEnrolmentManager {
         courseList.add(c);
     }
 
-    // for reporting
-    // to print all students in 1 courses
-    public ArrayList<Student> getStudentsInSemester(String semester) {
-        ArrayList<Student> students = new ArrayList<Student>();
-        for (StudentEnrolment se : enrolmentList) {
-            if (se.getSemester().equals(semester)) {
-                students.add(se.getStudent());
-            }
-        }
-        return students;
-    }
-
-    // to print all courses in 1 semester
+    // print all courses in 1 semester
     public ArrayList<Course> getCoursesInSemester(String semester) {
         ArrayList<Course> courses = new ArrayList<Course>();
         for (StudentEnrolment se : enrolmentList) {
@@ -67,22 +61,26 @@ public class StudentEnrolmentSystem implements StudentEnrolmentManager {
         return courses;
     }
 
-    // to print all courses of 1 student in 1 semester
-    public void printStudentCoursesInSemester(String studentId, String semester) {
+    // print all courses of 1 student in 1 semester
+    public ArrayList<Course> getStudentCoursesInSemester(String studentId, String semester) {
+        ArrayList<Course> courses = new ArrayList<Course>();
         for (StudentEnrolment se : enrolmentList) {
             if (se.getSemester().equals(semester) && se.getStudent().getId().equals(studentId)) {
-                System.out.println(se.getCourse());
+                courses.add(se.getCourse());
             }
         }
+        return courses;
     }
 
-    // to print all student of 1 course in 1 semester
-    public void printCourseStudentsInSemester(String courseId, String semester) {
+    // print all student of 1 course in 1 semester
+    public ArrayList<Student> getCourseStudentsInSemester(String courseId, String semester) {
+        ArrayList<Student> students = new ArrayList<Student>();
         for (StudentEnrolment se : enrolmentList) {
             if (se.getSemester().equals(semester) && se.getCourse().getId().equals(courseId)) {
-                System.out.println(se.getStudent());
+                students.add(se.getStudent());
             }
         }
+        return students;
     }
 
     // interface
