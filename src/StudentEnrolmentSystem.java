@@ -101,9 +101,7 @@ public class StudentEnrolmentSystem implements StudentEnrolmentManager {
     }
 
     @Override
-    public void getAll() {
-        for (StudentEnrolment se : enrolmentList) {
-            System.out.println(se);
-        }
+    public ArrayList<StudentEnrolment> getAll() {
+        return enrolmentList;
     }
 }
