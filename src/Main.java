@@ -1,36 +1,34 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class Main {
-    public static void main(String[] args) {
-        Student s1 = new Student("s1", "student", "8/28/2001");
-        Student s2 = new Student("s2", "student", "8/28/2001");
-        Course c1 = new Course("c1", "course", 1);
-        Course c2 = new Course("c2", "course", 1);
+    public static void main(String[] args) throws Exception {
+        StudentEnrolmentSystem ses = new StudentEnrolmentSystem();
 
-        StudentEnrolmentSystem seSystem = new StudentEnrolmentSystem();
+        fileHandle("default.csv", ses);
 
-        seSystem.addStudent(s1);
-        seSystem.addStudent(s2);
-        seSystem.addCourse(c1);
-        seSystem.addCourse(c2);
+        ses.getAll().forEach(System.out::println);
+    }
 
-        // add
-        seSystem.add("s1", "c1", "2021");
-        seSystem.add("s2", "c1", "2021");
-        seSystem.add("s1", "c1", "2022");
-        seSystem.add("s1", "c2", "2021");
+    public static void fileHandle(String fileName, StudentEnrolmentSystem ses) {
+        String line = "";
+        String splitBy = ",";
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
+            while ((line = br.readLine()) != null)    // check for reaching the end of line
+            {
+                String[] data = line.split(splitBy);    // split a line by comma into an array of string
 
-        System.out.println("printStudentCoursesInSemester");
-        seSystem.printStudentCoursesInSemester("s1", "2021");
-        System.out.println();
+                Student studentTemp = new Student(data[0], data[1], data[2]);
+                Course courseTemp = new Course(data[3], data[4], Integer.parseInt(data[5]));
 
-        seSystem.getAll().forEach(System.out::println);
-
-        // update
-        seSystem.update(1, "s2", "c2", "2002");
-
-        // delete
-        seSystem.delete(0);
-
-        System.out.println("After");
-        seSystem.getAll().forEach(System.out::println);
+                ses.addStudent(studentTemp);
+                ses.addCourse(courseTemp);
+                ses.add(studentTemp.getId(), courseTemp.getId(), data[6]);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
