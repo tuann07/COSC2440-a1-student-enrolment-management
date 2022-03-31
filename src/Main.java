@@ -1,17 +1,40 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        StudentEnrolmentSystem ses = new StudentEnrolmentSystem();
+        Menu menu = Menu.getInstance();
 
-        fileHandle("default.csv", ses);
+        Scanner sc = new Scanner(System.in);
+        String fileName = menu.askFileName(sc);
 
-        ses.getAll().forEach(System.out::println);
+        fileHandle(fileName);
+
+        int mainOption, secondaryOption;
+        do {
+            mainOption = menu.askMainMenu(sc);
+            switch (mainOption) {
+                case 1: {
+                    menu.addEnrolment(sc);
+                    break;
+                }
+                case 5: {
+                    menu.printAllEnrolments();
+                    break;
+                }
+            }
+
+            secondaryOption = menu.askSecondaryMenu(sc);
+            if (secondaryOption == 0) break;
+        } while (mainOption != 0);
+
+        sc.close();
     }
 
-    public static void fileHandle(String fileName, StudentEnrolmentSystem ses) {
+    public static void fileHandle(String fileName) {
+        StudentEnrolmentSystem ses = StudentEnrolmentSystem.getInstance();
         String line = "";
         String splitBy = ",";
         try {
@@ -28,7 +51,8 @@ public class Main {
                 ses.add(studentTemp.getId(), courseTemp.getId(), data[6]);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("File not found");
+            System.exit(0);
         }
     }
 }
