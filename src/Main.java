@@ -13,10 +13,14 @@ public class Main {
         seSystem.addCourse(c2);
 
         // add
+        seSystem.add("s1", "c1", "2021");
+        seSystem.add("s2", "c1", "2021");
         seSystem.add("s1", "c1", "2022");
-        seSystem.add("s1", "c1", "2022");
-        seSystem.add("s1", "c1", "2022");
-        seSystem.add("s1", "c1", "2022");
+        seSystem.add("s1", "c2", "2021");
+
+        System.out.println("printStudentCoursesInSemester");
+        seSystem.printStudentCoursesInSemester("s1", "2021");
+        System.out.println();
 
         seSystem.getAll().forEach(System.out::println);
 

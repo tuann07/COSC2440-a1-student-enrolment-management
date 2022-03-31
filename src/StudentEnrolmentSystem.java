@@ -44,6 +44,48 @@ public class StudentEnrolmentSystem implements StudentEnrolmentManager {
         courseList.add(c);
     }
 
+    // for reporting
+    // to print all students in 1 courses
+    public ArrayList<Student> getStudentsInSemester(String semester) {
+        ArrayList<Student> students = new ArrayList<Student>();
+        for (StudentEnrolment se : enrolmentList) {
+            if (se.getSemester().equals(semester)) {
+                students.add(se.getStudent());
+            }
+        }
+        return students;
+    }
+
+    // to print all courses in 1 semester
+    public ArrayList<Course> getCoursesInSemester(String semester) {
+        ArrayList<Course> courses = new ArrayList<Course>();
+        for (StudentEnrolment se : enrolmentList) {
+            if (se.getSemester().equals(semester)) {
+                courses.add(se.getCourse());
+            }
+        }
+        return courses;
+    }
+
+    // to print all courses of 1 student in 1 semester
+    public void printStudentCoursesInSemester(String studentId, String semester) {
+        for (StudentEnrolment se : enrolmentList) {
+            if (se.getSemester().equals(semester) && se.getStudent().getId().equals(studentId)) {
+                System.out.println(se.getCourse());
+            }
+        }
+    }
+
+    // to print all student of 1 course in 1 semester
+    public void printCourseStudentsInSemester(String courseId, String semester) {
+        for (StudentEnrolment se : enrolmentList) {
+            if (se.getSemester().equals(semester) && se.getCourse().getId().equals(courseId)) {
+                System.out.println(se.getStudent());
+            }
+        }
+    }
+
+    // interface
     @Override
     public boolean add(String studentId, String courseId, String semester) {
         Student student = getStudent(studentId);

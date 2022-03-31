@@ -21,6 +21,18 @@ public class StudentEnrolment {
         return id;
     }
 
+    public Student getStudent() {
+        return student;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
     public void setStudent(Student student) {
         this.student = student;
     }
