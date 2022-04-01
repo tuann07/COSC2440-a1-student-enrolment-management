@@ -143,6 +143,49 @@ public class Menu {
         printSuccess("Enrolment updated");
     }
 
+    public void doDeleteEnrolment(Scanner sc) {
+        StudentEnrolmentSystem ses = StudentEnrolmentSystem.getInstance();
+        String temp;
+        int enrolmentId;
+        System.out.println("---");
+        System.out.println("Please provide the following information to complete the process");
+        System.out.print("Enrolment ID: ");
+        try {
+            temp = sc.next();
+            enrolmentId = Integer.parseInt(temp);
+            if (ses.getOne(enrolmentId) == null) {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            printError("Enrolment not found in the database");
+            return;
+        }
+        if (!ses.delete(enrolmentId)) {
+            printError("Enrolment not found in the database");
+        }
+        printSuccess("Enrolment deleted");
+    }
+
+    public void doPrintAnEnrolment(Scanner sc) {
+        StudentEnrolmentSystem ses = StudentEnrolmentSystem.getInstance();
+        String temp;
+        int enrolmentId;
+        System.out.println("---");
+        System.out.println("Please provide the following information to complete the process");
+        System.out.print("Enrolment ID: ");
+        try {
+            temp = sc.next();
+            enrolmentId = Integer.parseInt(temp);
+            if (ses.getOne(enrolmentId) == null) {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            printError("Enrolment not found in the database");
+            return;
+        }
+        System.out.println(ses.getOne(enrolmentId));
+    }
+
     public void doPrintAllEnrolments() {
         StudentEnrolmentSystem ses = StudentEnrolmentSystem.getInstance();
         ses.getAll().forEach(System.out::println);

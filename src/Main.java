@@ -16,16 +16,11 @@ public class Main {
         do {
             mainOption = menu.askMainMenu(sc);
             switch (mainOption) {
-                case 1:
-                    menu.doAddEnrolment(sc);
-                    break;
-                case 2:
-                    menu.doUpdateEnrolment(sc);
-                    break;
-                case 5:
-                    menu.doPrintAllEnrolments();
-                    break;
-
+                case 1 -> menu.doAddEnrolment(sc);
+                case 2 -> menu.doUpdateEnrolment(sc);
+                case 3 -> menu.doDeleteEnrolment(sc);
+                case 4 -> menu.doPrintAnEnrolment(sc);
+                case 5 -> menu.doPrintAllEnrolments();
             }
 
             secondaryOption = menu.askSecondaryMenu(sc);
