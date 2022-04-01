@@ -21,6 +21,9 @@ public class Main {
                 case 3 -> menu.doDeleteEnrolment(sc);
                 case 4 -> menu.doPrintAnEnrolment(sc);
                 case 5 -> menu.doPrintAllEnrolments();
+                case 6 -> menu.doCoursesInSemester(sc);
+                case 7 -> menu.doStudentCoursesInSemester(sc);
+                case 8 -> menu.doCourseStudentsInSemester(sc);
             }
 
             secondaryOption = menu.askSecondaryMenu(sc);

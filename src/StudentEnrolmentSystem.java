@@ -50,7 +50,7 @@ public class StudentEnrolmentSystem implements StudentEnrolmentManager {
         courseList.add(c);
     }
 
-    // print all courses in 1 semester
+    // get all courses in 1 semester
     public ArrayList<Course> getCoursesInSemester(String semester) {
         ArrayList<Course> courses = new ArrayList<Course>();
         for (StudentEnrolment se : enrolmentList) {
@@ -61,7 +61,7 @@ public class StudentEnrolmentSystem implements StudentEnrolmentManager {
         return courses;
     }
 
-    // print all courses of 1 student in 1 semester
+    // get all courses of 1 student in 1 semester
     public ArrayList<Course> getStudentCoursesInSemester(String studentId, String semester) {
         ArrayList<Course> courses = new ArrayList<Course>();
         for (StudentEnrolment se : enrolmentList) {
@@ -72,7 +72,7 @@ public class StudentEnrolmentSystem implements StudentEnrolmentManager {
         return courses;
     }
 
-    // print all student of 1 course in 1 semester
+    // get all student of 1 course in 1 semester
     public ArrayList<Student> getCourseStudentsInSemester(String courseId, String semester) {
         ArrayList<Student> students = new ArrayList<Student>();
         for (StudentEnrolment se : enrolmentList) {

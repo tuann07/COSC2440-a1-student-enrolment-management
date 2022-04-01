@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -12,19 +13,27 @@ public class Menu {
     }
 
     private void printError(String message) {
+        printSeparator();
         System.out.println("\tError: " + message);
     }
 
     private void printSuccess(String message) {
+        printSeparator();
         System.out.println("\tSuccess: " + message);
     }
 
+    private void printSeparator() {
+        System.out.println("---");
+    }
+
     public String askFileName(Scanner sc) {
+        String temp, fileName;
+        int option;
+
         System.out.println("Choose your data source");
         System.out.println("\t1. Use default file");
         System.out.println("\t2. Use custom file");
-        String temp;
-        int option;
+
         while (true) {
             try {
                 System.out.print("Your option: ");
@@ -36,7 +45,7 @@ public class Menu {
                 printError("Please enter a valid option");
             }
         }
-        String fileName;
+
         if (option == 1) {
             fileName = "default.csv";
         } else {
@@ -47,7 +56,10 @@ public class Menu {
     }
 
     public int askMainMenu(Scanner sc) {
-        System.out.println("---");
+        String temp;
+        int option;
+
+        printSeparator();
         System.out.println("Choose an option below to continue:");
         System.out.println("\t1. Add an enrolment");
         System.out.println("\t2. Update an enrolment");
@@ -58,8 +70,7 @@ public class Menu {
         System.out.println("\t7. Print all courses of a student in a semester");
         System.out.println("\t8. Print all students of a course in a semester");
         System.out.println("\t0. Exit");
-        String temp;
-        int option;
+
         while (true) {
             try {
                 System.out.print("Your option: ");
@@ -75,12 +86,14 @@ public class Menu {
     }
 
     public int askSecondaryMenu(Scanner sc) {
-        System.out.println("---");
-        System.out.println("Choose an option below to continue:");
-        System.out.println("\t1. Show menu again");
-        System.out.println("\t0. Exit");
         String temp;
         int option;
+
+        printSeparator();
+        System.out.println("Choose an option below to continue:");
+        System.out.println("\t1. Show menu");
+        System.out.println("\t0. Exit");
+
         while (true) {
             try {
                 System.out.print("Your option: ");
@@ -98,7 +111,8 @@ public class Menu {
     public void doAddEnrolment(Scanner sc) {
         StudentEnrolmentSystem ses = StudentEnrolmentSystem.getInstance();
         String studentId, courseId, semester;
-        System.out.println("---");
+
+        printSeparator();
         System.out.println("Please provide the following information to complete the process");
         System.out.print("Student ID: ");
         studentId = sc.next();
@@ -106,6 +120,7 @@ public class Menu {
         courseId = sc.next();
         System.out.print("Semester: ");
         semester = sc.next();
+
         if (!ses.add(studentId, courseId, semester)) {
             printError("Student or Course not found in the database");
             return;
@@ -117,9 +132,11 @@ public class Menu {
         StudentEnrolmentSystem ses = StudentEnrolmentSystem.getInstance();
         String studentId, courseId, semester, temp;
         int enrolmentId;
-        System.out.println("---");
+
+        printSeparator();
         System.out.println("Please provide the following information to complete the process");
         System.out.print("Enrolment ID to modify: ");
+
         try {
             temp = sc.next();
             enrolmentId = Integer.parseInt(temp);
@@ -130,12 +147,14 @@ public class Menu {
             printError("Enrolment not found in the database");
             return;
         }
+
         System.out.print("Student ID: ");
         studentId = sc.next();
         System.out.print("Course ID: ");
         courseId = sc.next();
         System.out.print("Semester: ");
         semester = sc.next();
+
         if (!ses.update(enrolmentId, studentId, courseId, semester)) {
             printError("Student or Course not found in the database");
             return;
@@ -147,7 +166,8 @@ public class Menu {
         StudentEnrolmentSystem ses = StudentEnrolmentSystem.getInstance();
         String temp;
         int enrolmentId;
-        System.out.println("---");
+
+        printSeparator();
         System.out.println("Please provide the following information to complete the process");
         System.out.print("Enrolment ID: ");
         try {
@@ -170,7 +190,8 @@ public class Menu {
         StudentEnrolmentSystem ses = StudentEnrolmentSystem.getInstance();
         String temp;
         int enrolmentId;
-        System.out.println("---");
+
+        printSeparator();
         System.out.println("Please provide the following information to complete the process");
         System.out.print("Enrolment ID: ");
         try {
@@ -188,6 +209,71 @@ public class Menu {
 
     public void doPrintAllEnrolments() {
         StudentEnrolmentSystem ses = StudentEnrolmentSystem.getInstance();
+
+        printSeparator();
         ses.getAll().forEach(System.out::println);
+    }
+    public void doCoursesInSemester(Scanner sc) {
+        StudentEnrolmentSystem ses = StudentEnrolmentSystem.getInstance();
+        String semester;
+
+        System.out.println("---");
+        System.out.println("Please provide the following information to complete the process");
+        System.out.print("Semester: ");
+        semester = sc.next();
+
+        ArrayList<Course> courses = ses.getCoursesInSemester(semester);
+
+        if (courses.size() == 0) {
+            printError("No record found in the database");
+            return;
+        }
+
+        printSeparator();
+        courses.forEach(System.out::println);
+    }
+    public void doStudentCoursesInSemester(Scanner sc) {
+        StudentEnrolmentSystem ses = StudentEnrolmentSystem.getInstance();
+        String studentId, semester;
+
+        System.out.println("---");
+        System.out.println("Please provide the following information to complete the process");
+        System.out.print("Student ID: ");
+        studentId = sc.next();
+        System.out.print("Semester: ");
+        semester = sc.next();
+
+        ArrayList<Course> courses = ses.getStudentCoursesInSemester(studentId, semester);
+
+        if (courses.size() == 0) {
+            printError("No record found in the database");
+            return;
+        }
+
+        printSeparator();
+        courses.forEach(System.out::println);
+    }
+    public void doCourseStudentsInSemester(Scanner sc) {
+        StudentEnrolmentSystem ses = StudentEnrolmentSystem.getInstance();
+        String courseId, semester;
+
+        System.out.println("---");
+        System.out.println("Please provide the following information to complete the process");
+        System.out.print("Course ID: ");
+        courseId = sc.next();
+        System.out.print("Semester: ");
+        semester = sc.next();
+
+        printSeparator();
+
+        ArrayList<Student> students = ses.getCourseStudentsInSemester(courseId, semester);
+
+        if (students.size() == 0) {
+            printError("No record found in the database");
+            return;
+        }
+
+        printSeparator();
+        students.forEach(System.out::println);
     }
 }
