@@ -11,6 +11,14 @@ public class Menu {
         return instance;
     }
 
+    private void printError(String message) {
+        System.out.println("\tError: " + message);
+    }
+
+    private void printSuccess(String message) {
+        System.out.println("\tSuccess: " + message);
+    }
+
     public String askFileName(Scanner sc) {
         System.out.println("Choose your data source");
         System.out.println("\t1. Use default file");
@@ -23,9 +31,9 @@ public class Menu {
                 temp = sc.next();
                 option = Integer.parseInt(temp);
                 if (option == 1 || option == 2) break;
-                System.out.println("\tError: Please enter a valid option");
+                throw new Exception();
             } catch (Exception e) {
-                System.out.println("\tError: Please enter a valid option");
+                printError("Please enter a valid option");
             }
         }
         String fileName;
@@ -57,10 +65,10 @@ public class Menu {
                 System.out.print("Your option: ");
                 temp = sc.next();
                 option = Integer.parseInt(temp);
-                if (option >= 0 && option <=8) break;
-                System.out.println("\tError: Please enter a valid option");
+                if (option >= 0 && option <= 8) break;
+                throw new Exception();
             } catch (Exception e) {
-                System.out.println("\tError: Please enter a valid option");
+                printError("Please enter a valid option");
             }
         }
         return option;
@@ -79,15 +87,15 @@ public class Menu {
                 temp = sc.next();
                 option = Integer.parseInt(temp);
                 if (option == 0 || option == 1) break;
-                System.out.println("\tError: Please enter a valid option");
+                throw new Exception();
             } catch (Exception e) {
-                System.out.println("\tError: Please enter a valid option");
+                printError("Please enter a valid option");
             }
         }
         return option;
     }
 
-    public void addEnrolment(Scanner sc) {
+    public void doAddEnrolment(Scanner sc) {
         StudentEnrolmentSystem ses = StudentEnrolmentSystem.getInstance();
         String studentId, courseId, semester;
         System.out.println("---");
@@ -99,13 +107,43 @@ public class Menu {
         System.out.print("Semester: ");
         semester = sc.next();
         if (!ses.add(studentId, courseId, semester)) {
-            System.out.println("\tError: Student or Course not found in the database");
+            printError("Student or Course not found in the database");
             return;
         }
-        System.out.println("\tSuccess: Enrolment added");
+        printSuccess("Enrolment added");
     }
 
-    public void printAllEnrolments() {
+    public void doUpdateEnrolment(Scanner sc) {
+        StudentEnrolmentSystem ses = StudentEnrolmentSystem.getInstance();
+        String studentId, courseId, semester, temp;
+        int enrolmentId;
+        System.out.println("---");
+        System.out.println("Please provide the following information to complete the process");
+        System.out.print("Enrolment ID to modify: ");
+        try {
+            temp = sc.next();
+            enrolmentId = Integer.parseInt(temp);
+            if (ses.getOne(enrolmentId) == null) {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            printError("Enrolment not found in the database");
+            return;
+        }
+        System.out.print("Student ID: ");
+        studentId = sc.next();
+        System.out.print("Course ID: ");
+        courseId = sc.next();
+        System.out.print("Semester: ");
+        semester = sc.next();
+        if (!ses.update(enrolmentId, studentId, courseId, semester)) {
+            printError("Student or Course not found in the database");
+            return;
+        }
+        printSuccess("Enrolment updated");
+    }
+
+    public void doPrintAllEnrolments() {
         StudentEnrolmentSystem ses = StudentEnrolmentSystem.getInstance();
         ses.getAll().forEach(System.out::println);
     }

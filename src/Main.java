@@ -16,14 +16,16 @@ public class Main {
         do {
             mainOption = menu.askMainMenu(sc);
             switch (mainOption) {
-                case 1: {
-                    menu.addEnrolment(sc);
+                case 1:
+                    menu.doAddEnrolment(sc);
                     break;
-                }
-                case 5: {
-                    menu.printAllEnrolments();
+                case 2:
+                    menu.doUpdateEnrolment(sc);
                     break;
-                }
+                case 5:
+                    menu.doPrintAllEnrolments();
+                    break;
+
             }
 
             secondaryOption = menu.askSecondaryMenu(sc);
