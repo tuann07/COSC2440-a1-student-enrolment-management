@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
@@ -213,7 +212,8 @@ public class Menu {
         printSeparator();
         ses.getAll().forEach(System.out::println);
     }
-    public void doCoursesInSemester(Scanner sc) {
+
+    public void doPrintCoursesInSemester(Scanner sc) {
         StudentEnrolmentSystem ses = StudentEnrolmentSystem.getInstance();
         String semester;
 
@@ -232,7 +232,8 @@ public class Menu {
         printSeparator();
         courses.forEach(System.out::println);
     }
-    public void doStudentCoursesInSemester(Scanner sc) {
+
+    public void doPrintCoursesOfStudentInSemester(Scanner sc) {
         StudentEnrolmentSystem ses = StudentEnrolmentSystem.getInstance();
         String studentId, semester;
 
@@ -243,7 +244,7 @@ public class Menu {
         System.out.print("Semester: ");
         semester = sc.next();
 
-        ArrayList<Course> courses = ses.getStudentCoursesInSemester(studentId, semester);
+        ArrayList<Course> courses = ses.getCoursesOfStudentInSemester(studentId, semester);
 
         if (courses.size() == 0) {
             printError("No record found in the database");
@@ -253,7 +254,8 @@ public class Menu {
         printSeparator();
         courses.forEach(System.out::println);
     }
-    public void doCourseStudentsInSemester(Scanner sc) {
+
+    public void doPrintStudentsOfCourseInSemester(Scanner sc) {
         StudentEnrolmentSystem ses = StudentEnrolmentSystem.getInstance();
         String courseId, semester;
 
@@ -266,7 +268,7 @@ public class Menu {
 
         printSeparator();
 
-        ArrayList<Student> students = ses.getCourseStudentsInSemester(courseId, semester);
+        ArrayList<Student> students = ses.getStudentsOfCourseInSemester(courseId, semester);
 
         if (students.size() == 0) {
             printError("No record found in the database");

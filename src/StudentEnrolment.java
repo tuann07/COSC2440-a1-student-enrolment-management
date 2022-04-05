@@ -33,6 +33,10 @@ public class StudentEnrolment {
         return semester;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setStudent(Student student) {
         this.student = student;
     }
