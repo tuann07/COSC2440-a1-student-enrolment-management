@@ -12,9 +12,9 @@ public class Main {
             menu.askMainMenu(sc);
             menu.playMainOption(sc);
 
-            if (menu.mainOption == 0) break;
+            if (menu.getMainOption() == 0) break;
             menu.askSecondaryMenu(sc);
-            if (menu.secondaryOption == 0) break;
+            if (menu.getSecondaryoption() == 0) break;
         }
 
         sc.close();

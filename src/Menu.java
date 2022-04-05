@@ -3,14 +3,22 @@ import java.util.Scanner;
 
 public class Menu {
     private static Menu instance = new Menu();
-    public int mainOption;
-    public int secondaryOption;
+    private int mainOption;
+    private int secondaryOption;
 
     private Menu() {
     }
 
     public static Menu getInstance() {
         return instance;
+    }
+
+    public int getMainOption() {
+        return mainOption;
+    }
+
+    public int getSecondaryoption() {
+        return secondaryOption;
     }
 
     private void printError(String message) {
