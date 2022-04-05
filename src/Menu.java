@@ -25,7 +25,7 @@ public class Menu {
         System.out.println("---");
     }
 
-    public String askFileName(Scanner sc) {
+    public void doPopulateData(Scanner sc) {
         String temp, fileName;
         int option;
 
@@ -51,7 +51,8 @@ public class Menu {
             System.out.print("Please enter file name: ");
             fileName = sc.next();
         }
-        return fileName;
+
+        FileHandling.fileHandle(fileName);
     }
 
     public int askMainMenu(Scanner sc) {
