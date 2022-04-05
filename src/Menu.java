@@ -3,6 +3,8 @@ import java.util.Scanner;
 
 public class Menu {
     private static Menu instance = new Menu();
+    public int mainOption;
+    public int secondaryOption;
 
     private Menu() {
     }
@@ -23,6 +25,19 @@ public class Menu {
 
     private void printSeparator() {
         System.out.println("---");
+    }
+
+    public void playMainOption(Scanner sc) {
+        switch (mainOption) {
+            case 1 -> doAddEnrolment(sc);
+            case 2 -> doUpdateEnrolment(sc);
+            case 3 -> doDeleteEnrolment(sc);
+            case 4 -> doPrintAnEnrolment(sc);
+            case 5 -> doPrintAllEnrolments();
+            case 6 -> doPrintCoursesInSemester(sc);
+            case 7 -> doPrintCoursesOfStudentInSemester(sc);
+            case 8 -> doPrintStudentsOfCourseInSemester(sc);
+        }
     }
 
     public void doPopulateData(Scanner sc) {
@@ -55,7 +70,7 @@ public class Menu {
         FileHandling.fileHandle(fileName);
     }
 
-    public int askMainMenu(Scanner sc) {
+    public void askMainMenu(Scanner sc) {
         String temp;
         int option;
 
@@ -82,10 +97,11 @@ public class Menu {
                 printError("Please enter a valid option");
             }
         }
-        return option;
+
+        this.mainOption = option;
     }
 
-    public int askSecondaryMenu(Scanner sc) {
+    public void askSecondaryMenu(Scanner sc) {
         String temp;
         int option;
 
@@ -105,7 +121,8 @@ public class Menu {
                 printError("Please enter a valid option");
             }
         }
-        return option;
+
+        this.secondaryOption = option;
     }
 
     public void doAddEnrolment(Scanner sc) {

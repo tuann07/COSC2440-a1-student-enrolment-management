@@ -8,23 +8,13 @@ public class Main {
 
         menu.doPopulateData(sc);
 
-        int mainOption, secondaryOption;
         while (true) {
-            mainOption = menu.askMainMenu(sc);
-            switch (mainOption) {
-                case 1 -> menu.doAddEnrolment(sc);
-                case 2 -> menu.doUpdateEnrolment(sc);
-                case 3 -> menu.doDeleteEnrolment(sc);
-                case 4 -> menu.doPrintAnEnrolment(sc);
-                case 5 -> menu.doPrintAllEnrolments();
-                case 6 -> menu.doPrintCoursesInSemester(sc);
-                case 7 -> menu.doPrintCoursesOfStudentInSemester(sc);
-                case 8 -> menu.doPrintStudentsOfCourseInSemester(sc);
-            }
+            menu.askMainMenu(sc);
+            menu.playMainOption(sc);
 
-            if (mainOption == 0) break;
-            secondaryOption = menu.askSecondaryMenu(sc);
-            if (secondaryOption == 0) break;
+            if (menu.mainOption == 0) break;
+            menu.askSecondaryMenu(sc);
+            if (menu.secondaryOption == 0) break;
         }
 
         sc.close();
