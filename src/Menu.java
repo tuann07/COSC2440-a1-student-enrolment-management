@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -257,6 +259,20 @@ public class Menu {
 
         printSeparator();
         courses.forEach(System.out::println);
+
+        String fileName = "CoursesInSemester.csv";
+
+        try {
+            FileWriter toFile = new FileWriter(fileName);
+            for (Course c : courses) {
+                toFile.write(c.toCSV()+"\n");
+            }
+            toFile.close();
+            printSuccess("Successfully save to file " + fileName);
+        } catch (IOException e) {
+            printError("Error when saving to file");
+            e.printStackTrace();
+        }
     }
 
     public void doPrintCoursesOfStudentInSemester(Scanner sc) {
@@ -279,6 +295,20 @@ public class Menu {
 
         printSeparator();
         courses.forEach(System.out::println);
+
+        String fileName = "CoursesOfStudentInSemester.csv";
+
+        try {
+            FileWriter toFile = new FileWriter(fileName);
+            for (Course c : courses) {
+                toFile.write(c.toCSV()+"\n");
+            }
+            toFile.close();
+            printSuccess("Successfully save to file " + fileName);
+        } catch (IOException e) {
+            printError("Error when saving to file");
+            e.printStackTrace();
+        }
     }
 
     public void doPrintStudentsOfCourseInSemester(Scanner sc) {
@@ -303,5 +333,19 @@ public class Menu {
 
         printSeparator();
         students.forEach(System.out::println);
+
+        String fileName = "StudentsOfCourseInSemester.csv";
+
+        try {
+            FileWriter toFile = new FileWriter(fileName);
+            for (Student s : students) {
+                toFile.write(s.toCSV()+"\n");
+            }
+            toFile.close();
+            printSuccess("Successfully save to file " + fileName);
+        } catch (IOException e) {
+            printError("Error when saving to file");
+            e.printStackTrace();
+        }
     }
 }

@@ -41,6 +41,10 @@ public class Student {
         this.birthdate = birthdate;
     }
 
+    public String toCSV() {
+        return id + "," + name + "," + birthdate;
+    }
+
     @Override
     public String toString() {
         return "Student{" +

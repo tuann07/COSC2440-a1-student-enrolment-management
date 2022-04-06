@@ -31,7 +31,7 @@ public class FileHandling {
             }
         } catch (IOException e) {
             System.out.println("File not found");
-            System.exit(0);
+            System.exit(1);
         }
     }
 }

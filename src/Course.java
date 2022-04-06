@@ -39,6 +39,10 @@ public class Course {
         this.numOfCredits = numOfCredits;
     }
 
+    public String toCSV() {
+        return id + "," + name + "," + numOfCredits;
+    }
+
     @Override
     public String toString() {
         return "Course{" +
